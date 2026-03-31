@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Icepack Decision Admin</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Shopify Operations</p>
+          <h1>Icepack Decision Admin</h1>
+          <p class="lede">
+            Review weather-based shipment decisions, tune thresholds, and keep uncertain
+            orders routed to manual review.
+          </p>
+        </div>
+        <div class="status-card" id="statusCard">Loading status...</div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Rule Settings</h2>
+          <p>Global thresholds and tagging behavior for temperature-sensitive shipments.</p>
+        </div>
+        <form id="settingsForm" class="grid-form">
+          <label>
+            Icepack threshold (F)
+            <input type="number" name="icepackThresholdF" required />
+          </label>
+          <label>
+            Manual review threshold (F)
+            <input type="number" name="reviewThresholdF" />
+          </label>
+          <label>
+            Icepack tag
+            <input type="text" name="icepackRequiredTag" required />
+          </label>
+          <label>
+            Review tag
+            <input type="text" name="manualReviewTag" required />
+          </label>
+          <label class="wide">
+            Eligible product IDs
+            <textarea name="eligibleProductIds" rows="3"></textarea>
+          </label>
+          <label class="wide">
+            Eligible product types
+            <textarea name="eligibleProductTypes" rows="2"></textarea>
+          </label>
+          <button type="submit">Save settings</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Manual Evaluation</h2>
+          <p>Evaluate a cached Shopify order or paste a sample payload for local testing.</p>
+        </div>
+        <form id="evaluateForm" class="grid-form">
+          <label>
+            Cached order ID
+            <input type="text" name="orderId" placeholder="1234567890" />
+          </label>
+          <label class="wide">
+            Sample order JSON
+            <textarea name="orderPayload" rows="8" placeholder='{"id": 1, "line_items": []}'></textarea>
+          </label>
+          <button type="submit">Run evaluation</button>
+        </form>
+        <pre id="evaluationResult" class="result-box"></pre>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Cached Orders</h2>
+          <p>Recent orders received through webhooks or manual seed requests.</p>
+        </div>
+        <div id="ordersTable" class="table-shell"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Recent Evaluations</h2>
+          <p>Decision history with reason codes, target date, and applied tag actions.</p>
+        </div>
+        <div id="evaluationsTable" class="table-shell"></div>
+      </section>
+    </main>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

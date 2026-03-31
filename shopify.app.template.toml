@@ -1,0 +1,36 @@
+client_id = "REPLACE_WITH_SHOPIFY_API_KEY"
+name = "Icepack Decision Admin"
+handle = "icepack-decision-admin"
+application_url = "https://your-app-url.example.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+include_config_on_deploy = true
+
+[access_scopes]
+scopes = "read_orders,write_orders,read_products,write_products,read_fulfillments"
+
+[auth]
+redirect_urls = [
+  "https://your-app-url.example.com/embedded"
+]
+
+[webhooks]
+api_version = "2025-10"
+
+[[webhooks.subscriptions]]
+topics = ["orders/create"]
+uri = "/webhooks/orders/create"
+
+[[webhooks.subscriptions]]
+topics = ["orders/updated"]
+uri = "/webhooks/orders/updated"
+
+[[webhooks.subscriptions]]
+topics = ["fulfillments/update"]
+uri = "/webhooks/fulfillments/update"
+
+[[webhooks.subscriptions]]
+topics = ["app/uninstalled"]
+uri = "/webhooks/app/uninstalled"
